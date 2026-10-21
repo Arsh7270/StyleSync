@@ -1,0 +1,18 @@
+﻿[
+  {"name":"White T-shirt","category":"top","color":"White","occasion":"casual"},
+  {"name":"Oxford Shirt","category":"top","color":"Light blue","occasion":"college"},
+  {"name":"Navy Polo Shirt","category":"top","color":"Navy","occasion":"college"},
+  {"name":"Grey Hoodie","category":"outerwear","color":"Grey","occasion":"casual","laundry":true},
+  {"name":"Black Formal Trousers","category":"bottom","color":"Black","occasion":"formal"},
+  {"name":"Blue Jeans","category":"bottom","color":"Blue","occasion":"casual"},
+  {"name":"Olive Chinos","category":"bottom","color":"Olive","occasion":"college"},
+  {"name":"Pink Blouse","category":"top","color":"Pink","occasion":"casual"},
+  {"name":"Cream Sweater","category":"top","color":"Cream","occasion":"formal"},
+  {"name":"Beige Trousers","category":"bottom","color":"Beige","occasion":"college"},
+  {"name":"Black Midi Dress","category":"dress","color":"Black","occasion":"party"},
+  {"name":"Floral Summer Dress","category":"dress","color":"Multicolor","occasion":"casual"},
+  {"name":"Red Party Dress","category":"dress","color":"Red","occasion":"party","laundry":true},
+  {"name":"Denim Jacket","category":"outerwear","color":"Blue","occasion":"casual"},
+  {"name":"White Sneakers","category":"footwear","color":"White","occasion":"casual"},
+  {"name":"Brown Belt","category":"accessories","color":"Brown","occasion":"formal"}
+]
