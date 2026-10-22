@@ -1,58 +1,46 @@
-<div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Space+Grotesk&weight=550&size=40&color=000&center=true&vCenter=true&width=450&height=50&lines=Wardrobe+Organizer" />
-  <br>
-  ❝ A smarter way to organize what you wear. ❞
-</div>
-<br>
+﻿# Smart Wardrobe Planner and Outfit Recommendation System
 
-![](assets/main.png)
-
-## Project Overview
-
-- Built with Vanilla JavaScript to implement DOM manipulation, state management and browser storage  
-- Handles complex UI interactions and dynamic state without frameworks  
-- Persists data client-side using LocalStorage across sessions  
-- Optimized for desktop; drag-and-drop and storage behavior may vary on mobile  
+A simple web-based wardrobe management project developed and customized
+for a Software Engineering laboratory project.
 
 ## Features
 
-- **Wardrobe Management:** Add, edit, and delete clothing items with names and categories. Filter and search to browse your wardrobe quickly.
+- Add, view, edit, and delete clothing items
+- Organize clothes by category, color, season, and occasion
+- View clothing images
+- Create and manage outfit combinations
+- Save and plan outfits
+- Store wardrobe data locally in the browser
 
-- **Outfit Creation:** Create outfits using a visual canvas. Add items with a click and arrange them freely using drag-and-drop.
+## Technologies
 
-- **Outfit Planning:** Assign outfits to specific dates via a full calendar view with thumbnails, detailed previews and easy deletion.
+- HTML
+- CSS
+- JavaScript
+- Browser localStorage
 
-- **Saved Outfits Management:** Store created outfits, assign them to dates or delete them when no longer needed.
+## Run locally
 
-- **Persistent Storage:** All data is stored in LocalStorage, allowing wardrobe and outfits to persist across sessions.
+1. Install Python if it is not already installed.
+2. Open PowerShell in the project folder.
+3. Run:
 
-## Screenshots
+   `py -m http.server 8000`
 
-| | |
-|:---:|:---:|
-| Wardrobe | Create Outfits |
-| ![](assets/wardrobe.png) | ![](assets/create-outfits.png) |
-| Saved Outfits | Planned Outfits |
-| ![](assets/saved-outfits.png) | ![](assets/planned-outfits.png) |
+4. Open `http://localhost:8000/wardrobe.html` in your browser.
 
+Keep the terminal open while using the website.
 
-## Built With
+## Project author
 
-| Technology | Usage |
-|---|---|
-| HTML5 | Structure & layout |
-| CSS3 | Responsive styling |
-| Vanilla JavaScript | All interactivity & logic |
-| LocalStorage API | Data persistence |
-| FullCalendar | Calendar interface |
+GitHub: https://github.com/Arsh7270
 
-## Installation
+## Acknowledgment
 
-> [!NOTE]  
-> If you prefer not to install it locally, you can also access the [live demo](https://wardrobeorganizer.vercel.app)
+This project was adapted and customized from the original
+Wardrobe Organizer repository by imanabshar:
 
-To set up the Wardrobe Organizer Application locally, follow these steps:
+https://github.com/imanabshar/wardrobe-organizer
 
-1. Clone the repository with `git clone https://github.com/imanabshar/wardrobe-organizer.git`.
-2. Navigate to where the repository is saved on your local machine and open up its `index.html`.
-
+The original repository and any applicable license or attribution
+requirements should be consulted when redistributing this project.

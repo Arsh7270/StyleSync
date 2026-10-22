@@ -1,0 +1,278 @@
+const $ = (selector) => document.querySelector(selector);
+const STORAGE_KEY = "items";
+const PLAN_KEY = "wardrobePlans";
+
+function loadItems() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    return Array.isArray(data) ? data.map(normalizeItem) : [];
+  } catch { return []; }
+}
+function normalizeItem(item) {
+  return {
+    ...item,
+    id: String(item.id ?? item._id ?? crypto.randomUUID()),
+    name: item.name ?? item.title ?? "Untitled item",
+    category: item.category ?? "top",
+    color: item.color ?? "Unknown",
+    occasion: item.occasion ?? "casual",
+    image: item.image ?? item.photo ?? item.imageUrl ?? "",
+    laundry: item.laundry === true || item.laundry === "laundry" || item.status === "laundry" ? "laundry" : (item.laundry || "clean")
+  };
+}
+let items = loadItems();
+let editingId = null;
+
+function saveItems() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
+function safe(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[char]));
+}
+function label(value) {
+  return String(value || "").replace(/[-_]/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+}
+function imageMarkup(item) {
+  if (item.image) {
+    return `<img class="item-photo" src="${safe(item.image)}" alt="${safe(item.name)}" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="photo-placeholder" style="display:none"><i class="fa-solid fa-shirt"></i></div>`;
+  }
+  return `<div class="photo-placeholder"><i class="fa-solid fa-shirt"></i></div>`;
+}
+function refreshStats() {
+  $("#totalCount").textContent = items.length;
+  $("#cleanCount").textContent = items.filter(x => x.laundry === "clean").length;
+  $("#laundryCount").textContent = items.filter(x => x.laundry === "laundry").length;
+}
+function refreshColorFilter() {
+  const select = $("#colorFilter");
+  const previous = select.value;
+  const colors = [...new Set(items.map(x => x.color).filter(Boolean))].sort();
+  select.innerHTML = '<option value="all">All colors</option>' +
+    colors.map(c => `<option value="${safe(c)}">${safe(label(c))}</option>`).join("");
+  if (colors.includes(previous)) select.value = previous;
+}
+function filteredItems() {
+  const q = $("#search").value.trim().toLowerCase();
+  const category = $("#categoryFilter").value;
+  const color = $("#colorFilter").value;
+  const occasion = $("#occasionFilter").value;
+  const status = $("#statusFilter").value;
+  return items.filter(item =>
+    (!q || `${item.name} ${item.color} ${item.category} ${item.occasion}`.toLowerCase().includes(q)) &&
+    (category === "all" || item.category === category) &&
+    (color === "all" || item.color === color) &&
+    (occasion === "all" || item.occasion === occasion) &&
+    (status === "all" || item.laundry === status)
+  );
+}
+function itemCard(item) {
+  return `<article class="clothing-card">
+    ${imageMarkup(item)}
+    <div class="card-content">
+      <span class="pill">${safe(label(item.category))}</span>
+      <h3>${safe(item.name)}</h3>
+      <p><span class="color-dot" style="background:${safe(/^#[0-9a-f]{3,8}$/i.test(item.color) ? item.color : "#d7dce2")}"></span> ${safe(label(item.color))}</p>
+      <p><i class="fa-regular fa-calendar"></i> ${safe(label(item.occasion))}</p>
+      <span class="status ${item.laundry === "laundry" ? "dirty" : "ready"}">${item.laundry === "laundry" ? "In laundry" : "Ready to wear"}</span>
+      <div class="card-actions">
+        <button class="btn small secondary" data-action="toggle" data-id="${safe(item.id)}">${item.laundry === "laundry" ? "Mark clean" : "Send to laundry"}</button>
+        <button class="btn small secondary" data-action="edit" data-id="${safe(item.id)}">Edit</button>
+        <button class="btn small danger" data-action="delete" data-id="${safe(item.id)}">Delete</button>
+      </div>
+    </div>
+  </article>`;
+}
+function render() {
+  const list = filteredItems();
+  $("#wardrobeGrid").innerHTML = list.map(itemCard).join("");
+  $("#emptyMessage").hidden = list.length > 0;
+  refreshStats();
+  refreshColorFilter();
+  refreshPlanItems();
+  renderPlans();
+}
+function resetForm() {
+  editingId = null;
+  $("#itemForm").reset();
+  $("#editId").value = "";
+  $("#formHeading").textContent = "Add a clothing item";
+  $("#saveItemBtn").textContent = "Add item";
+  $("#cancelEdit").hidden = true;
+}
+$("#itemForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  const name = $("#itemName").value.trim();
+  const color = $("#itemColor").value.trim();
+  if (!name || !color) return;
+  const existing = items.find(x => x.id === editingId);
+  let image = existing?.image || "";
+  const file = $("#itemPhoto").files[0];
+  if (file) {
+    if (!file.type.startsWith("image/")) {
+      $("#formMessage").textContent = "Please select an image file.";
+      return;
+    }
+    if (file.size > 1_500_000) {
+      $("#formMessage").textContent = "Please use an image smaller than 1.5 MB.";
+      return;
+    }
+    image = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  const item = {
+    ...(existing || {}),
+    id: existing?.id || crypto.randomUUID(),
+    name,
+    category: $("#itemCategory").value,
+    color,
+    occasion: $("#itemOccasion").value,
+    laundry: $("#itemLaundry").value,
+    image
+  };
+  if (existing) items = items.map(x => x.id === existing.id ? item : x);
+  else items.unshift(item);
+  try {
+    saveItems();
+    $("#formMessage").textContent = existing ? "Clothing item updated." : "Clothing item added.";
+    resetForm();
+    render();
+  } catch {
+    $("#formMessage").textContent = "Storage is full. Try a smaller photo.";
+  }
+});
+$("#cancelEdit").addEventListener("click", resetForm);
+
+$("#wardrobeGrid").addEventListener("click", event => {
+  const button = event.target.closest("button[data-action]");
+  if (!button) return;
+  const item = items.find(x => x.id === button.dataset.id);
+  if (!item) return;
+  if (button.dataset.action === "delete") {
+    if (!confirm(`Delete "${item.name}"?`)) return;
+    items = items.filter(x => x.id !== item.id);
+    saveItems();
+    render();
+  }
+  if (button.dataset.action === "toggle") {
+    item.laundry = item.laundry === "laundry" ? "clean" : "laundry";
+    saveItems();
+    render();
+  }
+  if (button.dataset.action === "edit") {
+    editingId = item.id;
+    $("#editId").value = item.id;
+    $("#itemName").value = item.name;
+    $("#itemCategory").value = item.category;
+    $("#itemColor").value = item.color;
+    $("#itemOccasion").value = item.occasion;
+    $("#itemLaundry").value = item.laundry;
+    $("#formHeading").textContent = "Edit clothing item";
+    $("#saveItemBtn").textContent = "Save changes";
+    $("#cancelEdit").hidden = false;
+    $("#itemForm").scrollIntoView({behavior:"smooth", block:"start"});
+  }
+});
+["search","categoryFilter","colorFilter","occasionFilter","statusFilter"].forEach(id => {
+  $("#" + id).addEventListener("input", () => {
+    const list = filteredItems();
+    $("#wardrobeGrid").innerHTML = list.map(itemCard).join("");
+    $("#emptyMessage").hidden = list.length > 0;
+  });
+});
+
+function recommend() {
+  const occasion = $("#recommendOccasion").value;
+  const clean = items.filter(x => x.laundry === "clean" && (x.occasion === occasion || x.occasion === "casual"));
+  const tops = clean.filter(x => x.category === "top");
+  const bottoms = clean.filter(x => x.category === "bottom");
+  const dresses = clean.filter(x => x.category === "dress");
+  const outerwear = clean.filter(x => x.category === "outerwear");
+  const shoes = clean.filter(x => x.category === "footwear");
+  const extras = clean.filter(x => x.category === "accessories");
+  const outfits = [];
+  dresses.slice(0, 5).forEach(dress => outfits.push([dress, ...shoes.slice(0,1), ...extras.slice(0,1)]));
+  tops.slice(0, 6).forEach(top => bottoms.slice(0, 6).forEach(bottom => {
+    if (outfits.length < 12) outfits.push([top, bottom, ...outerwear.slice(0,1), ...shoes.slice(0,1)]);
+  }));
+  const container = $("#recommendations");
+  if (!outfits.length) {
+    container.innerHTML = '<p class="empty-message">Add clean tops and bottoms (or dresses) to get recommendations.</p>';
+    return;
+  }
+  container.innerHTML = outfits.slice(0, 8).map((outfit, i) => `
+  <article class="outfit-card">
+    <h3>Look ${i + 1}</h3>
+    <div class="outfit-visuals">
+      ${outfit.map(item => `
+        <div class="outfit-piece">
+          ${imageMarkup(item)}
+          <span>${safe(item.name)}</span>
+        </div>
+      `).join("")}
+    </div>
+    <p>${outfit.map(item => safe(item.name)).join(" + ")}</p>
+    <button class="btn small primary"
+      data-outfit="${safe(JSON.stringify(outfit.map(item => item.id)))}"
+      type="button">Use for plan</button>
+  </article>
+`).join("");
+}
+$("#recommendBtn").addEventListener("click", recommend);
+$("#recommendations").addEventListener("click", event => {
+  const btn = event.target.closest("[data-outfit]");
+  if (!btn) return;
+  const ids = JSON.parse(btn.dataset.outfit);
+  [...$("#planItems").options].forEach(option => option.selected = ids.includes(option.value));
+  $("#planName").value = "Recommended " + label($("#recommendOccasion").value) + " outfit";
+  $("#planForm").scrollIntoView({behavior:"smooth",block:"center"});
+});
+
+function loadPlans() {
+  try {
+    const value = JSON.parse(localStorage.getItem(PLAN_KEY) || "[]");
+    return Array.isArray(value) ? value : [];
+  } catch { return []; }
+}
+function refreshPlanItems() {
+  const select = $("#planItems");
+  const chosen = [...select.selectedOptions].map(o => o.value);
+  select.innerHTML = items.map(x => `<option value="${safe(x.id)}">${safe(x.name)} (${safe(label(x.category))}${x.laundry === "laundry" ? ", in laundry" : ""})</option>`).join("");
+  [...select.options].forEach(o => o.selected = chosen.includes(o.value));
+}
+function renderPlans() {
+  const plans = loadPlans().sort((a,b) => a.date.localeCompare(b.date));
+  $("#plansList").innerHTML = plans.length ? plans.map(plan => `<article class="plan-card">
+    <div><strong>${safe(plan.name)}</strong><p>${safe(plan.date)}</p>
+    <p>${(plan.itemIds || []).map(id => items.find(x => x.id === id)?.name).filter(Boolean).map(safe).join(" Â· ") || "No items selected"}</p></div>
+    <button class="btn small danger" data-delete-plan="${safe(plan.id)}" type="button">Delete plan</button>
+  </article>`).join("") : '<p class="empty-message">No planned outfits yet.</p>';
+}
+$("#planForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const name = $("#planName").value.trim();
+  const date = $("#planDate").value;
+  const itemIds = [...$("#planItems").selectedOptions].map(o => o.value);
+  if (!name || !date) return;
+  const plans = loadPlans();
+  plans.push({id:crypto.randomUUID(), name, date, itemIds});
+  localStorage.setItem(PLAN_KEY, JSON.stringify(plans));
+  $("#planName").value = "";
+  $("#planItems").selectedIndex = -1;
+  renderPlans();
+});
+$("#plansList").addEventListener("click", event => {
+  const btn = event.target.closest("[data-delete-plan]");
+  if (!btn) return;
+  localStorage.setItem(PLAN_KEY, JSON.stringify(loadPlans().filter(p => p.id !== btn.dataset.deletePlan)));
+  renderPlans();
+});
+
+const today = new Date();
+$("#planDate").value = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,"0")}-${String(today.getDate()).padStart(2,"0")}`;
+render();

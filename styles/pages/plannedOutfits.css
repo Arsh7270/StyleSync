@@ -1,0 +1,235 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  position: relative;
+}
+
+#calendar {
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 14px;
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.fc .fc-toolbar {
+  align-items: center;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #d4d4d4;
+  margin-bottom: 0 !important;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #0a0a0a;
+}
+
+.fc .fc-button,
+.fc .fc-button-primary {
+  background: transparent !important;
+  color: #0a0a0a !important;
+  border: 1px solid #d4d4d4 !important;
+  border-radius: 4px !important;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  box-shadow: none !important;
+}
+
+.fc .fc-button:hover,
+.fc .fc-button-primary:hover {
+  background: #f0efed !important;
+  border-color: #6b6b6b !important;
+}
+
+.fc .fc-col-header-cell {
+  background: #f7f7f5;
+  border-color: #d4d4d4 !important;
+  padding: 0.55rem 0;
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b6b6b;
+  text-decoration: none !important;
+}
+
+.fc .fc-daygrid-day {
+  border-color: #d4d4d4 !important;
+  background: #ffffff;
+  transition: background 0.12s ease;
+  max-height: 120px;
+  overflow: hidden;
+}
+
+.fc .fc-daygrid-day:hover {
+  background: #f7f7f5;
+}
+
+.fc .fc-daygrid-day-number {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #6b6b6b;
+  padding: 0.5rem 0.6rem;
+  text-decoration: none !important;
+  transition: color 0.12s ease;
+}
+
+.fc .fc-daygrid-day:hover .fc-daygrid-day-number {
+  color: #0a0a0a;
+}
+
+.fc-day-today {
+  background: #f7f7f5 !important;
+}
+
+.fc-day-today .fc-daygrid-day-number {
+  color: #0a0a0a !important;
+  font-weight: 700;
+  position: relative;
+}
+
+.fc-day-today .fc-daygrid-day-number::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #0a0a0a;
+}
+
+.fc-day-other .fc-daygrid-day-number {
+  color: #d4d4d4;
+}
+
+.fc .fc-event {
+  background: #e5e5e5;
+  color: #686767;
+  border: none;
+  border-radius: 4px;
+  margin: 2px 3px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.fc .fc-event:hover {
+  opacity: 0.75;
+  transform: translateY(-1px);
+}
+
+.fc .fc-event-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.outfit-preview {
+  position: absolute;
+  background: #ffffff;
+  border: 1px solid #d4d4d4;
+  border-radius: 14px;
+  padding: 1.25rem;
+  display: none;
+  z-index: 1000;
+  min-width: 400px;
+  min-height: 400px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+.outfit-preview::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 1.5rem;
+  width: 9px;
+  height: 9px;
+  background: #ffffff;
+  border-left: 1px solid #d4d4d4;
+  border-top: 1px solid #d4d4d4;
+  transform: rotate(45deg);
+}
+
+.outfit-name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #0a0a0a;
+}
+
+#delete-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid #d4d4d4;
+  color: #6b6b6b;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+#delete-btn:hover {
+  background: #0a0a0a;
+  border-color: #0a0a0a;
+  color: #ffffff;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: 0.75rem;
+    margin: 1rem auto;
+  }
+
+  #calendar {
+    padding: 0.75rem;
+    border-radius: 8px;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 0.9rem;
+  }
+
+  .fc .fc-button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.68rem;
+  }
+
+  #delete-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 0.7rem;
+  }
+}

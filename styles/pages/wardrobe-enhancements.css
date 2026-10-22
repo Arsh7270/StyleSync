@@ -1,0 +1,67 @@
+﻿.smart-main{max-width:1200px;width:92%;margin:35px auto 70px;color:#24252b}
+.hero{padding:36px;border-radius:22px;background:linear-gradient(135deg,#f0e9ff,#e7f4f1);margin-bottom:24px}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);margin:8px 0}
+.hero p{color:#5f6270}.eyebrow{font-size:.75rem;font-weight:800;letter-spacing:2px}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:25px}
+.stats div{background:#ffffffd9;border-radius:14px;padding:15px 22px;min-width:110px}
+.stats strong,.stats span{display:block}.stats strong{font-size:1.7rem}.stats span{font-size:.85rem;color:#656774}
+.panel{background:#fff;border:1px solid #e8e8ed;border-radius:18px;padding:25px;margin:22px 0;box-shadow:0 6px 24px #2020400a}
+.panel h2{margin:0 0 8px}.panel>p,.section-heading p{color:#6c6e79}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0}
+.smart-main label{display:flex;flex-direction:column;gap:7px;font-weight:600;font-size:.92rem}
+.smart-main input,.smart-main select{width:100%;box-sizing:border-box;border:1px solid #d8d9e2;border-radius:9px;padding:11px 12px;background:#fff;color:#292a32;font:inherit;min-height:43px}
+.smart-main input:focus,.smart-main select:focus{outline:2px solid #8d76dd;outline-offset:1px}
+.form-actions,.card-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+.btn{border:0;border-radius:9px;padding:11px 16px;font-weight:700;cursor:pointer}
+.btn.primary{background:#6d53c7;color:white}.btn.secondary{background:#f0eff5;color:#393442}.btn.danger{background:#ffeded;color:#a52c3d}
+.btn.small{font-size:.78rem;padding:8px 10px}
+.filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:18px 0}
+.smart-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px;margin-top:18px}
+.clothing-card,.outfit-card{border:1px solid #e7e7ed;border-radius:15px;overflow:hidden;background:#fff;min-width:0}
+.item-photo,.photo-placeholder{width:100%;height:190px;object-fit:cover;display:flex;align-items:center;justify-content:center;background:#f2f0f7;color:#8b7ab5;font-size:3rem}
+.card-content{padding:15px}.card-content h3{margin:10px 0 8px;overflow-wrap:anywhere}.card-content p{margin:8px 0;color:#686a76;font-size:.9rem}
+.pill{display:inline-block;border-radius:99px;padding:5px 9px;background:#f0eaff;color:#674eb3;font-size:.75rem;font-weight:700}
+.status{display:inline-block;padding:5px 9px;border-radius:99px;font-size:.75rem;font-weight:700;margin-top:5px}.ready{background:#e4f7ea;color:#257342}.dirty{background:#fff0d9;color:#925c12}
+.color-dot{display:inline-block;width:12px;height:12px;border:1px solid #ccc;border-radius:50%;vertical-align:middle}
+.empty-message{color:#777;padding:15px 0}.section-heading{display:flex;justify-content:space-between;align-items:center}
+.recommend-controls{display:flex;align-items:end;gap:12px;flex-wrap:wrap;margin-top:18px}.recommend-controls label{min-width:200px}
+.outfit-card{padding:18px}.outfit-card h3{margin:0 0 8px}.outfit-items{display:grid;gap:5px;color:#666;font-size:.85rem}
+.plan-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;align-items:end;margin:18px 0}
+.plan-form select[multiple]{height:130px}.plans-list{display:grid;gap:10px}.plan-card{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:14px;border:1px solid #e7e7ed;border-radius:12px}.plan-card p{margin:5px 0;color:#686a76;font-size:.9rem}
+[hidden]{display:none!important}
+@media(max-width:600px){.smart-main{width:94%;margin-top:18px}.hero,.panel{padding:19px}.plan-card{align-items:flex-start;flex-direction:column}.stats{gap:8px}.stats div{flex:1;padding:12px}}
+
+/* Outfit recommendation clothing thumbnails */
+.outfit-visuals {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 14px 0;
+}
+.outfit-piece {
+  width: 110px;
+  text-align: center;
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+.outfit-piece img.item-photo {
+  display: block;
+  width: 100%;
+  height: 125px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #f5f5f5;
+}
+.outfit-piece .photo-placeholder {
+  display: flex;
+  height: 125px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #f5f5f5;
+}
+.outfit-piece span {
+  display: block;
+  margin-top: 6px;
+}

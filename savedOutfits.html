@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSync — Smart Wardrobe Planner</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- CSS Files for this page -->
+    <link rel="stylesheet" href="styles/shared/header.css">
+    <link rel="stylesheet" href="styles/pages/savedOutfits.css">
+    <link rel="stylesheet" href="styles/shared/footer.css">
+<link rel="stylesheet" href="styles/stylesync-theme.css">
+</head>
+
+<body>
+<section class="stylesync-page-hero">
+  <h1>Saved Outfits</h1>
+  <p>Your favorite combinations, ready whenever you need them.</p>
+</section>
+
+    <header>
+        <div class="site-name">StyleSync</div>
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li class="close-btn"><i class="fa-solid fa-xmark"></i></li>
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="wardrobe.html" class="nav-link">Wardrobe</a></li>
+                <li class="nav-item"><a href="createOutfits.html" class="nav-link">Create Outfits</a></li>
+                <li class="nav-item"><a href="savedOutfits.html" class="nav-link">Saved Outfits</a></li>
+                <li class="nav-item"><a href="plannedOutfits.html" class="nav-link">Planned Outfits</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <main>
+        <section class="outfits-display">
+            <h1>Saved Outfits</h1>
+            <div class="search-box">
+                <label for="search">Search Items</label>
+                <div class="search-bar">
+                    <input type="text" id="search" placeholder="Search your outfits">
+                    <i id="search-button" class="fa fa-search"></i>
+                </div>
+            </div>
+            <div class="outfits-grid"></div>
+            <div class="assign-popup"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-left">
+                <h2 class="footer-logo">StyleSync</h2>
+                <p class="footer-text">Organize your style, effortlessly.</p>
+            </div>
+
+            <div class="footer-right">
+                <a href="https://github.com/Arsh7270" target="_blank" class="footer-link">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>Â© 2026 StyleSync. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="scripts/layout/header.js"></script>
+    <script type="module" src="scripts/savedOutfits.js"></script>
+</body>
+
+</html>
+
+
+
+
+

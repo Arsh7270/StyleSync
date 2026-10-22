@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Work Sans", "sans-serif";
+}
+
+header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.3rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: #000000;
+    border-bottom: 1px solid #333333;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.site-name {
+    font-size: 2em;
+    font-weight: 500;
+    color: #ffffff;
+}
+
+.navbar {
+    margin: 0.9rem 0 0 0;
+    position: relative;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 3rem;
+}
+
+.nav-link {
+    color: #ffffff;
+    transition: color 0.3s ease;
+    font-size: 1.05rem;
+    position: relative;
+}
+
+.nav-menu a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    width: 100%;
+    height: .6px;
+    background-color: #fefefe;
+    transition: transform 0.3s ease;
+}
+
+.nav-menu a:hover::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
+.hamburger,
+.close-btn {
+    display: none;
+    cursor: pointer;
+}
+
+.hamburger i,
+.close-btn i {
+    font-size: 1.7rem;
+    color: #ffffff;
+}
+
+@media(max-width: 768px) {
+    header {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1.3rem;
+        border-bottom: 2px solid #000;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .hamburger {
+        display: block;
+        z-index: 1100;
+    }
+
+    .nav-menu {
+        position: relative;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        z-index: 1000;
+        top: 0;
+        left: -100%;
+        width: 65%;
+        min-width: 14rem;
+        height: 100vh;
+        transition: left 0.5s ease-in-out;
+        position: fixed;
+        gap: 1.7rem;
+        padding: 5rem 2rem;
+        background-color: #060606;
+        overflow-y: auto;
+    }
+
+    .nav-item {
+        margin: 16px 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-link {
+        color: white;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 25px;
+        right: 45px;
+        font-size: 2rem;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        display: block;
+        z-index: 2000;
+    }
+
+}
+
+@media(max-width: 550px) {
+    .site-name {
+        font-size: 1.5rem;
+    }
+
+    .hamburger i,
+    .close-btn i {
+        font-size: 1.4rem;
+    }
+}

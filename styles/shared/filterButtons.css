@@ -1,0 +1,50 @@
+#filter-buttons {
+    display: grid;
+    grid-template-columns: repeat(7, 140px);
+    gap: 1rem;
+    overflow-x: scroll;
+    padding: 2rem 0.5rem;
+}
+
+#filter-buttons button {
+    padding: 0.7rem 0.8rem;
+    font-size: 1rem;
+    border-radius: 55px;
+    border: 1px solid rgb(0, 0, 0);
+    background-color: #000000;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+#filter-buttons {
+    scrollbar-width: none;
+}
+
+#filter-buttons::-webkit-scrollbar {
+    display: none;
+}
+
+#filter-buttons button.active {
+    transform: scale(1.08);
+}
+
+#filter-buttons button {
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+}
+
+@media(max-width: 466px) {
+    #filter-buttons {
+        grid-template-columns: repeat(7, 120px);
+        gap: 0.8rem;
+    }
+
+    #filter-buttons button {
+        font-size: 0.9rem;
+    }
+}
+
+@media(max-width: 850px) {
+    #filter-buttons {
+        padding: 1rem 0;
+    }
+}

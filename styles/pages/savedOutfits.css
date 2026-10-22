@@ -1,0 +1,178 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.outfits-display {
+    padding: 2rem 4rem;
+    padding-bottom: 0rem;
+    min-height: 80vh;
+}
+
+.search-box label {
+    display: none;
+}
+
+.search-bar {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    transition: 0.3s;
+    padding: 0.8rem 0.8rem;
+    margin: 1.3rem 0;
+    font-size: 1rem;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 1rem;
+}
+
+.search-bar .fa-search {
+    color: #666;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.outfits-grid {
+    margin: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.outfit-container {
+    position: relative;
+    border: 1px solid #cacaca;
+    display: inline-block;
+    padding: 1rem;
+    background-color: #fcfefc;
+    border-radius: 0.9rem;
+}
+
+.outfit-name {
+    width: 100%;
+    position: absolute;
+    bottom: 5%;
+    text-align: center;
+    z-index: 1000;
+}
+
+.outfits-grid img {
+    width: 130px;
+    height: 130px;
+}
+
+.button-container {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin: 1rem auto;
+    display: none;
+    cursor: pointer;
+}
+
+.button-container i {
+    cursor: pointer;
+}
+
+.outfit-container{
+    overflow: hidden;
+}
+
+.outfit-container .image{
+    width: 200px;
+    height: 180px;
+    object-fit: contain;
+}
+
+.outfit-container:hover .button-container {
+    display: flex;
+}
+
+.outfit-delete-btn,
+.assign-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.3rem;
+}
+
+.outfit-delete-btn:hover {
+    transform: scale(1.08);
+}
+
+.modal {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 20%;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.empty-message {
+    margin: auto;
+    font-size: 1.2rem;
+    color: #555;
+    padding: 2rem;
+}
+
+.assign-popup {
+    position: absolute;
+    bottom: 25px;
+    background: #000000;
+    color: #ffffff;
+    padding: 0.8rem 1rem;
+    border-radius: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+    z-index: 9999;
+    font-weight: 500;
+}
+
+.assign-popup.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+main h1 {
+    font-weight: 530;
+}
+
+@media(max-width: 768px) {
+    .outfits-display {
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media(max-width: 550px) {
+
+    main h1 {
+        margin-top: 1rem;
+        font-size: 1.6rem;
+    }
+
+    .search-bar {
+        width: 250px;
+    }
+
+    .empty-message {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+}

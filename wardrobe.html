@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StyleSync — Smart Wardrobe Planner</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="styles/shared/header.css">
+<link rel="stylesheet" href="styles/pages/wardrobe.css">
+<link rel="stylesheet" href="styles/shared/wardrobeUtils.css">
+<link rel="stylesheet" href="styles/shared/filterButtons.css">
+<link rel="stylesheet" href="styles/shared/footer.css">
+<link rel="stylesheet" href="styles/pages/wardrobe-enhancements.css">
+<link rel="stylesheet" href="styles/stylesync-theme.css">
+</head>
+<body>
+<section class="stylesync-page-hero">
+  <h1>My Wardrobe</h1>
+  <p>Your collection, your style. Keep all your clothing organized in one place.</p>
+</section>
+
+<header>
+  <div class="site-name">Smart Wardrobe</div>
+  <nav class="navbar"><ul class="nav-menu">
+    <li class="close-btn"><i class="fa-solid fa-xmark"></i></li>
+    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+    <li class="nav-item"><a href="wardrobe.html" class="nav-link">Wardrobe</a></li>
+    <li class="nav-item"><a href="createOutfits.html" class="nav-link">Create Outfits</a></li>
+    <li class="nav-item"><a href="savedOutfits.html" class="nav-link">Saved Outfits</a></li>
+    <li class="nav-item"><a href="plannedOutfits.html" class="nav-link">Planned Outfits</a></li>
+  </ul></nav>
+  <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+</header>
+
+<main class="smart-main">
+  <section class="hero">
+    <p class="eyebrow">YOUR PERSONAL STYLE ASSISTANT</p>
+    <h1>My Wardrobe</h1>
+    <p>Organize your clothes, plan outfits, and make getting dressed easier.</p>
+    <div class="stats">
+      <div><strong id="totalCount">0</strong><span>Total items</span></div>
+      <div><strong id="cleanCount">0</strong><span>Ready to wear</span></div>
+      <div><strong id="laundryCount">0</strong><span>In laundry</span></div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2 id="formHeading">Add a clothing item</h2>
+    <form id="itemForm">
+      <input type="hidden" id="editId">
+      <div class="form-grid">
+        <label>Clothing name *
+          <input id="itemName" required maxlength="80" placeholder="e.g. Blue Oxford Shirt">
+        </label>
+        <label>Category *
+          <select id="itemCategory" required>
+            <option value="top">Top wear</option><option value="bottom">Bottom wear</option>
+            <option value="dress">Dress</option><option value="outerwear">Outerwear</option>
+            <option value="footwear">Footwear</option><option value="accessories">Accessories</option>
+          </select>
+        </label>
+        <label>Color *
+          <input id="itemColor" required maxlength="40" placeholder="e.g. Navy blue">
+        </label>
+        <label>Occasion
+          <select id="itemOccasion">
+            <option value="casual">Casual</option><option value="college">College</option>
+            <option value="party">Party</option><option value="formal">Formal</option>
+          </select>
+        </label>
+        <label>Photo
+          <input id="itemPhoto" type="file" accept="image/*">
+        </label>
+        <label>Cleanliness
+          <select id="itemLaundry"><option value="clean">Clean / Ready to wear</option><option value="laundry">In laundry</option></select>
+        </label>
+      </div>
+      <div class="form-actions">
+        <button class="btn primary" type="submit" id="saveItemBtn">Add item</button>
+        <button class="btn secondary" type="button" id="cancelEdit" hidden>Cancel edit</button>
+      </div>
+      <p id="formMessage" role="status"></p>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="section-heading"><div><h2>My clothes</h2><p>Search and filter your collection.</p></div></div>
+    <div class="filters">
+      <input id="search" type="search" placeholder="Search by name or color...">
+      <select id="categoryFilter">
+        <option value="all">All categories</option><option value="top">Top wear</option>
+        <option value="bottom">Bottom wear</option><option value="dress">Dress</option>
+        <option value="outerwear">Outerwear</option><option value="footwear">Footwear</option>
+        <option value="accessories">Accessories</option>
+      </select>
+      <select id="colorFilter"><option value="all">All colors</option></select>
+      <select id="occasionFilter">
+        <option value="all">All occasions</option><option value="casual">Casual</option>
+        <option value="college">College</option><option value="party">Party</option>
+        <option value="formal">Formal</option>
+      </select>
+      <select id="statusFilter">
+        <option value="all">Clean + laundry</option><option value="clean">Ready to wear</option>
+        <option value="laundry">In laundry</option>
+      </select>
+    </div>
+    <div id="wardrobeGrid" class="smart-grid"></div>
+    <p id="emptyMessage" class="empty-message">No clothing items yet. Add your first item above!</p>
+  </section>
+
+  <section class="panel">
+    <h2>Outfit recommendations</h2>
+    <p>Choose an occasion and get suggestions using clean clothes only.</p>
+    <div class="recommend-controls">
+      <label>Occasion
+        <select id="recommendOccasion">
+          <option value="casual">Casual</option><option value="college">College</option>
+          <option value="party">Party</option><option value="formal">Formal</option>
+        </select>
+      </label>
+      <button class="btn primary" id="recommendBtn" type="button">Suggest outfits</button>
+    </div>
+    <div id="recommendations" class="smart-grid"></div>
+  </section>
+
+  <section class="panel">
+    <h2>Plan an outfit</h2>
+    <p>Save an outfit idea for a specific day.</p>
+    <form id="planForm" class="plan-form">
+      <label>Plan date <input id="planDate" type="date" required></label>
+      <label>Outfit name <input id="planName" maxlength="80" placeholder="e.g. Monday college look" required></label>
+      <label>Choose items
+        <select id="planItems" multiple size="5" aria-label="Choose clothing items"></select>
+      </label>
+      <button class="btn primary" type="submit">Save plan</button>
+    </form>
+    <div id="plansList" class="plans-list"></div>
+  </section>
+</main>
+
+<footer class="footer"><div class="footer-container">
+  <div class="footer-left"><h2 class="footer-logo">Smart Wardrobe</h2><p class="footer-text">Organize your style, effortlessly.</p></div>
+  <div class="footer-right"><a href="https://github.com/Arsh7270" target="_blank" rel="noopener" class="footer-link"><i class="fa-brands fa-github"></i></a></div>
+</div><div class="footer-bottom"><p>© 2026 Smart Wardrobe. All rights reserved.</p></div></footer>
+
+<script src="scripts/layout/header.js"></script>
+<script type="module" src="scripts/wardrobe.js"></script>
+</body>
+</html>
+
+
+
+
+
+

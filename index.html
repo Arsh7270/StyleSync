@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleSync — Smart Wardrobe Planner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <!-- CSS Files for this page -->
+    <link rel="stylesheet" href="styles/shared/header.css">
+    <link rel="stylesheet" href="styles/pages/index.css">
+    <link rel="stylesheet" href="styles/shared/wardrobeUtils.css">
+    <link rel="stylesheet" href="styles/shared/footer.css">
+<link rel="stylesheet" href="styles/stylesync-theme.css">
+</head>
+
+<body>
+<section class="stylesync-intro" style="max-width:900px;margin:24px auto;padding:24px;text-align:center;">
+  <h1 style="margin-bottom:10px;">StyleSync</h1>
+  <p style="font-size:1.05rem;line-height:1.7;">
+    Your personal smart wardrobe planner. Organize your clothing,
+    explore outfit combinations, and plan what to wear for different
+    occasions — all in one place.
+  </p>
+</section>
+
+    <header>
+        <div class="site-name">StyleSync</div>
+
+        <nav class="navbar">
+            <ul class="nav-menu">
+                <li class="close-btn"><i class="fa-solid fa-xmark"></i></li>
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="wardrobe.html" class="nav-link">Wardrobe</a></li>
+                <li class="nav-item"><a href="createOutfits.html" class="nav-link">Create Outfits</a></li>
+                <li class="nav-item"><a href="savedOutfits.html" class="nav-link">Saved Outfits</a></li>
+                <li class="nav-item"><a href="plannedOutfits.html" class="nav-link">Planned Outfits</a></li>
+            </ul>
+        </nav>
+        <div class="hamburger">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </header>
+
+    <main>
+        <div class="main-container">
+            <section class="add-clothing">
+                <h1>Add Clothes</h1>
+                <div class="upload-clothing-container">
+                    <div>
+                        <input id="upload-image" type="file" accept="image/jpeg, image/png, image/jpg">
+                        <label class="upload-image-label" for="upload-image">Choose File</label>
+                        <input id="clothing-name-input" type="text" maxlength="15" placeholder="Name of Clothing">
+                    </div>
+                    <div class="category-container">
+                        <select id="category-bar">
+                            <option value="" disabled selected>Choose Category</option>
+                            <option value="all">All</option>
+                            <option value="top">Top Wear</option>
+                            <option value="bottom">Bottom Wear</option>
+                            <option value="dress">Dresses</option>
+                            <option value="outerwear">Outerwear</option>
+                            <option value="footwear">Footwear</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="image-container">
+                        <img src="" alt="uploaded-clothing" id="image-preview">
+                        <p class="clothing-name-display"></p>
+                    </div>
+                </div>
+                <button id="add-image-btn" disabled>Add to Wardrobe</button>
+            </section>
+
+            <section class="wardrobe-preview">
+                <h1>Your Wardrobe</h1>
+                <div class="wardrobe-grid"></div>
+                <div class="wardrobe-actions">
+                    <a href="wardrobe.html">View Wardrobe</a>
+                    <a href="createOutfits.html">Create fits</a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+
+            <div class="footer-left">
+                <h2 class="footer-logo">StyleSync</h2>
+                <p class="footer-text">Organize your style, effortlessly.</p>
+            </div>
+
+            <div class="footer-right">
+                <a href="https://github.com/Arsh7270" target="_blank" class="footer-link">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>Â© 2026 StyleSync. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts/layout/header.js"></script>
+    <script type="module" src="scripts/main.js"></script>
+</body>
+
+</html>
+
+
+
+
+
